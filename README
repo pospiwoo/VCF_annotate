@@ -1,0 +1,22 @@
+VCF_ann.py is a script that parses information from VCF file and annotate each entry with 
+useful information. After running the script, the output VCF file will contain annotation
+information appended at the end of each line. (tab delemited)
+Appended information is as follows.
+
+1. Type of variation (sub indel, silent, intergenic, etc) when multiple, annotate with the most deleterious possibility. 
+  - According to the following VCF specifications, when multiple types are
+    present, the script assums that they are ordered according to ‘most deleterious’. 
+    (and thus, using the left-most annotation)
+
+  - Multiple “effects / consequences” are separated by comma.
+    * Optional: Annotations are sorted by  sorted by:
+      i. Effect/Consequence: Estimated deleteriousness. Compare using 
+         ‘most deleterious’ when multiple consequences are predicted.
+
+2. Depth of sequence coverage at the site
+3. Number of reads supporting the variant
+4. percentage of reads supoorting the var vs those supporting the reference reads
+  - This is calculated as, 
+    <#_of_variant_reads> / <total_read_depth>, and 
+    <#_of_reference_reads> / <total_read_depth>
+
