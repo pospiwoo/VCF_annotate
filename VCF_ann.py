@@ -3,20 +3,22 @@ from collections import defaultdict
 
 class annotateVCF:
 	def __init__(self, file_name, out_file_name):
+		# initialize IO files and global variables
 		self.inFile = open(file_name,'r')
 		self.outFile = open(out_file_name,'w')
 		self.TYPE_cnt = defaultdict(int)
 
     	def __del__(self):
+		# close all open files in destruct
 		self.inFile.close()
 		self.outFile.close()
 
 	def process(self):
 		for line in self.inFile:
-			if line.startswith("#"):
+			if line.startswith("#"): #skip header lines
 				continue
 			data = line.strip().split("\t")
-			if len(data) < 11:
+			if len(data) < 11: #skip insufficient lines
 				continue
 			CHROM = data[0]
 			POS = data[1]
@@ -27,8 +29,10 @@ class annotateVCF:
 			FILTER = data[6]
 			INFO = data[7]
 			FORMAT = data[8]
+			# parsing annotation info from INFO string
 			answer1, answer2, answer3, answer4 \
 				= self.infoProcess(INFO)
+			# write annotations to output file
 			self.writeToFile(line, answer1, answer2, answer3, answer4)
 
 	def infoProcess(self, INFO):
@@ -77,6 +81,8 @@ if __name__ == "__main__":
 		exit()
 	file_name = sys.argv[1]
 	o_file_name = sys.argv[2]
+
+	# init instance and run driver functions
 	annVCF_obj = annotateVCF(file_name, o_file_name)
 	annVCF_obj.process()
 
