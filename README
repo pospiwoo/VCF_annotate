@@ -19,4 +19,9 @@ Appended information is as follows.
   - This is calculated as, 
     <#_of_variant_reads> / <total_read_depth>, and 
     <#_of_reference_reads> / <total_read_depth>
-
+    
+5. allele freq of variant from BI ExAC
+6. additional optional informaion from ExAC
+  - while there exists a lot of information returned from ExAC, the script adds
+    full retured http string result from ExAC so that any relavent information 
+    can be parsed afterwards when needed
